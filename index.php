@@ -55,10 +55,10 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
           <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
         </div>
-        <div class="col-sm-4 aanmelden-chauffeur">
-          <h3>Aanmelden als passagier <span class="caret"></h3>
-            <form name="frmRegistration" method="post" action="" style="display: none">
-              <table border="0" width="500" align="center" class="registratie-table">
+        <div class="col-sm-4 aanmelden">
+          <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als passagier  <span id="passagier-icon" class="glyphicon glyphicon-chevron-down"></h3>
+            <form name="frmRegistration" method="post" action="" id="aanmelden-passagier">
+              <table border="0" width="500" align="center">
                 <?php if(!empty($success_message)) { ?>
                 <div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
                 <?php } ?>
@@ -93,44 +93,42 @@
                 </tr>
               </table>
             </form>
-            <h4>of</h4>
-          <h3>Aanmelden als chauffeur</h3>
-          <form name="frmRegistration" method="post" action="">
-          	<table border="0" width="500" align="center" class="registratie-table">
-          		<?php if(!empty($success_message)) { ?>
-          		<div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
-          		<?php } ?>
-          		<?php if(!empty($error_message)) { ?>
-          		<div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
-          		<?php } ?>
-          		<tr>
-            			<td><input type="text" placeholder="Email" class="inputBox" name="userEmail" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>"></td>
-          		</tr>
-          		<tr>
-          			<td><input type="text" placeholder="Voornaam" class="inputBox" name="firstName" value="<?php if(isset($_POST['firstName'])) echo $_POST['firstName']; ?>"></td>
-          		</tr>
-          		<tr>
-          			<td><input type="text" placeholder="Achternaam" class="inputBox" name="lastName" value="<?php if(isset($_POST['lastName'])) echo $_POST['lastName']; ?>"></td>
-          		</tr>
-          		<tr>
-          			<td><input type="password" placeholder="Wachtwoord" class="inputBox" name="password" value=""></td>
-          		</tr>
-          		<tr>
-          			<td><input type="password" placeholder="Bevestig wachtwoord" class="inputBox" name="confirm_password" value=""></td>
-          		</tr>
-          		<tr>
-          			<td>
-                <input type="radio" name="gender" value="Man" <?php if(isset($_POST['gender']) && $_POST['gender']=="Man") { ?>checked<?php  } ?>> Man
-          			<input type="radio" name="gender" value="Vrouw" <?php if(isset($_POST['gender']) && $_POST['gender']=="Vrouw") { ?>checked<?php  } ?>> Vrouw
-                <input type="radio" name="gender" value="Onzijdig" <?php if(isset($_POST['gender']) && $_POST['gender']=="Onzijdig") { ?>checked<?php  } ?>> Onzijdig
-          			</td>
-          		</tr>
-          		<tr>
-          			<td>
-                <input type="submit" name="register-user" value="Registreer" class="btnRegister"></td>
-          		</tr>
-          	</table>
-          </form>
+            <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als chauffeur  <span id="chauffeur-icon" class="glyphicon glyphicon-chevron-up"></h3>
+            <form name="frmRegistration" method="post" action="">
+            	<table border="0" width="500" align="center" id="aanmelden-chauffeur">
+            		<?php if(!empty($success_message)) { ?>
+            		<div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
+            		<?php } ?>
+            		<?php if(!empty($error_message)) { ?>
+            		<div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
+            		<?php } ?>
+            		<tr>
+              			<td><input type="text" placeholder="Email" class="inputBox" name="userEmail" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>"></td>
+            		</tr>
+            		<tr>
+            			<td><input type="text" placeholder="Voornaam" class="inputBox" name="firstName" value="<?php if(isset($_POST['firstName'])) echo $_POST['firstName']; ?>"></td>
+            		</tr>
+            		<tr>
+            			<td><input type="text" placeholder="Achternaam" class="inputBox" name="lastName" value="<?php if(isset($_POST['lastName'])) echo $_POST['lastName']; ?>"></td>
+            		</tr>
+            		<tr>
+            			<td><input type="password" placeholder="Wachtwoord" class="inputBox" name="password" value=""></td>
+            		</tr>
+            		<tr>
+            			<td><input type="password" placeholder="Bevestig wachtwoord" class="inputBox" name="confirm_password" value=""></td>
+            		</tr>
+            		<tr>
+            			<td>
+                  <input type="radio" name="gender" value="Man" <?php if(isset($_POST['gender']) && $_POST['gender']=="Man") { ?>checked<?php  } ?>> Man
+            			<input type="radio" name="gender" value="Vrouw" <?php if(isset($_POST['gender']) && $_POST['gender']=="Vrouw") { ?>checked<?php  } ?>> Vrouw
+                  <input type="radio" name="gender" value="Onzijdig" <?php if(isset($_POST['gender']) && $_POST['gender']=="Onzijdig") { ?>checked<?php  } ?>> Onzijdig
+            			</td>
+            		</tr>
+            		<tr>
+            			<td><input type="submit" name="register-user" value="Registreer" class="btnRegister"></td>
+            		</tr>
+            	</table>
+            </form>
         </div>
       </div>
     </div>

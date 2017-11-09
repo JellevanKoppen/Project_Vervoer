@@ -1,6 +1,52 @@
-.aanmelden-chauffeur{
+.aanmelden{
   background: #f2f2f2;
   padding: 10px;
+}
+
+#passagier-icon{
+  /* Firefox */
+  -moz-transition: all 0.5s ease;
+  /* WebKit */
+  -webkit-transition: all 0.5s ease;
+  /* Opera */
+  -o-transition: all 0.5s ease;
+  /* Standard */
+  transition: all 0.5s ease;
+}
+
+
+
+.title-aanmelden{
+  padding: 5px 0 5px 5px;
+  margin: 1px;
+}
+
+.title-aanmelden:hover{
+  margin: 0;
+  cursor: pointer;
+  border: #c3d0b5 1px solid;
+  background: rgba(0,0,0,0.2);
+  padding: 5px 0 5px 5px;
+	border-radius: 4px;
+}
+
+#aanmelden-passagier, #aanmelden-chauffeur{
+  /* Firefox */
+  -moz-transition: opacity 0.5s linear, position 0.5s linear;
+  /* WebKit */
+  -webkit-transition: opacity 0.5s linear, position 0.5s linear;
+  /* Opera */
+  -o-transition: opacity 0.5s linear, position 0.5s linear;
+  /* Standard */
+  transition: opacity 0.5s linear, position 0.5s linear;
+}
+
+#aanmelden-passagier{
+  display: none;
+}
+
+#aanmelden-chauffeur{
+  display: block;
 }
 
 .error-message {
@@ -47,4 +93,5 @@
 	cursor: pointer;
 	border-radius: 4px;
 	margin-left: 10px;
+  margin-top: 10px;
 }
