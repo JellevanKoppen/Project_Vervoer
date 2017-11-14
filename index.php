@@ -11,6 +11,18 @@
     <title>.</title>
   </head>
   <body>
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 51.766, lng: 4.440},
+          zoom: 12
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAp41bC-pq4-49tDrcpLqAj1LTwRx3HYY4&callback=initMap"
+    async defer></script>
     <div class="col-md-12" id="titlescreen">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -24,34 +36,25 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="about.html">about me</a></li>
-          <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">Projecten <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="project0.html">Project 0 | De Kluis</a></li>
-              <li><a href="project1.html">Project 1 | De Lift</a></li>
-              <li><a href="#">Project 2 | ...</a></li>
-              <li><a href="#">Project 3 | ...</a></li>
-            </ul>
-          </li>
-          <li><a href="http://stud.hro.nl/0934984/bytegroep3/">GroepsSite</a></li>
+          <li class="active"><a href="index.php">Home</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Wie zijn wij?</a></li>
+          <li><a href="#">Hoe het werkt</a></li>
+          <li><a href="#">Ritprijsopgave</a></li>
+          <li><a href="#">Overzicht</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="http://hint.hro.nl"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
-          <li><a href="https://outlook.office365.com/owa/?realm=hrnl.onmicrosoft.com&exsvurl=1&ll-cc=1033&modurl=0"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
         </ul>
       </div>
       </div>
     </nav>
     <div class="container">
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-8">
           <h3 id="demo">Column 1</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-        </div>
-        <div class="col-sm-4">
-          <h3>Column 2</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
           <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
         </div>
@@ -93,6 +96,9 @@
                 </tr>
               </table>
             </form>
+            <div class="midden">
+            <div class="onderbreking"></div><p class="onderbreking-text">of <br /></p><div class="onderbreking"></div>
+          </div>
             <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als chauffeur  <span id="chauffeur-icon" class="glyphicon glyphicon-chevron-up"></h3>
             <form name="frmRegistration" method="post" action="">
             	<table border="0" width="500" align="center" id="aanmelden-chauffeur">
@@ -117,6 +123,11 @@
             		<tr>
             			<td><input type="password" placeholder="Bevestig wachtwoord" class="inputBox" name="confirm_password" value=""></td>
             		</tr>
+                <tr>
+                  <td colspan="2">
+                  <p>Geboortedatum: </p>
+                </td>
+                </tr>
                 <tr>
                   <td>
                     <select name="dag" id="Birthday_day">
@@ -160,25 +171,23 @@
 
                     <select id="Birthday_Month" name="maand">
                       <option value="-1">Maand:</option>
-                      <option value="January">Jan</option>
-                      <option value="February">Feb</option>
-                      <option value="March">Mar</option>
-                      <option value="April">Apr</option>
-                      <option value="May">Mei</option>
-                      <option value="June">Jun</option>
-                      <option value="July">Jul</option>
-                      <option value="August">Aug</option>
-                      <option value="September">Sep</option>
-                      <option value="October">Okt</option>
-                      <option value="November">Nov</option>
-                      <option value="December">Dec</option>
+                      <option value="01">Jan</option>
+                      <option value="02">Feb</option>
+                      <option value="03">Mar</option>
+                      <option value="04">Apr</option>
+                      <option value="05">Mei</option>
+                      <option value="06">Jun</option>
+                      <option value="07">Jul</option>
+                      <option value="08">Aug</option>
+                      <option value="09">Sep</option>
+                      <option value="10">Okt</option>
+                      <option value="11">Nov</option>
+                      <option value="12">Dec</option>
                     </select>
 
                     <select name="jaar" id="Birthday_Year">
 
                       <option value="-1">Jaar:</option>
-                      <option value="2012">2012</option>
-                      <option value="2011">2011</option>
                       <option value="2010">2010</option>
                       <option value="2009">2009</option>
                       <option value="2008">2008</option>
@@ -240,6 +249,7 @@
             </form>
         </div>
       </div>
+    </div>
     </div>
   </body>
 </html>
