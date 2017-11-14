@@ -11,18 +11,6 @@
     <title>.</title>
   </head>
   <body>
-    <div id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 51.766, lng: 4.440},
-          zoom: 12
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAp41bC-pq4-49tDrcpLqAj1LTwRx3HYY4&callback=initMap"
-    async defer></script>
     <div class="col-md-12" id="titlescreen">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -41,16 +29,17 @@
           <li><a href="#">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
           <li><a href="#">Ritprijsopgave</a></li>
-          <li><a href="#">Overzicht</a></li>
+          <li style="display: none;"><a href="#">Overzicht</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
+          <li style="display: none;"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
         </ul>
       </div>
       </div>
     </nav>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-sm-8">
@@ -250,6 +239,117 @@
         </div>
       </div>
     </div>
-    </div>
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 51.766, lng: 4.520},
+          zoom: 11,
+          styles: [
+              {
+                  "featureType": "administrative",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "saturation": "-100"
+                      }]},
+              {
+                  "featureType": "administrative.province",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "visibility": "off"
+                      }]},
+              {
+                  "featureType": "landscape",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "saturation": -100
+                      },
+                      {
+                          "lightness": 65
+                      },
+                      {
+                          "visibility": "on"
+                      }]},
+              {
+                  "featureType": "poi",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "saturation": -100
+                      },
+                      {
+                          "lightness": "50"
+                      },
+                      {
+                          "visibility": "simplified"
+                      }]},
+              {
+                  "featureType": "road",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "saturation": "-100"
+                      }]},
+              {
+                  "featureType": "road.highway",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "visibility": "simplified"
+                      }]},
+              {
+                  "featureType": "road.arterial",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "lightness": "30"
+                      }]},
+              {
+                  "featureType": "road.local",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "lightness": "40"
+                      }]},
+              {
+                  "featureType": "transit",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "saturation": -100
+                      },
+                      {
+                          "visibility": "simplified"
+                      }]},
+              {
+                  "featureType": "water",
+                  "elementType": "geometry",
+                  "stylers": [{
+                          "hue": "#ffff00"
+                      },
+                      {
+                          "lightness": -25
+                      },
+                      {
+                          "saturation": -97
+                      }]},
+              {
+                  "featureType": "water",
+                  "elementType": "labels",
+                  "stylers": [
+                      {
+                          "lightness": -25
+                      },
+                      {
+                          "saturation": -100
+        }]}]});
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAp41bC-pq4-49tDrcpLqAj1LTwRx3HYY4&callback=initMap"
+    async defer></script>
   </body>
 </html>

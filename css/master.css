@@ -1,6 +1,24 @@
+html, body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#map{
+  height: 50%;
+  z-index: 0;
+  top: -350px;
+}
+
+.row{
+  z-index: 1;
+  position: relative;
+}
+
 .aanmelden{
   background: #f2f2f2;
   padding: 10px;
+  box-shadow: 5px 5px 2.5px #888888;
 }
 
 #chauffeur-icon, #passagier-icon{
@@ -55,11 +73,6 @@
   background: rgba(0,0,0,0.2);
   padding: 5px 0 5px 5px;
 	border-radius: 4px;
-}
-
-#map{
-  height: 100%;
-  display: absolute;
 }
 
 #aanmelden-passagier, #aanmelden-chauffeur{
