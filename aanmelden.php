@@ -24,7 +24,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.php">Home</a></li>
+          <li><a href="index.php">Home</a></li>
           <li><a href="#">Contact</a></li>
           <li><a href="#">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
@@ -34,7 +34,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li style="display: none;"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
           <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
-          <li><a href="aanmelden.php"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
+          <li class="active"><a href="aanmelden.php"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
         </ul>
       </div>
       </div>
@@ -43,11 +43,10 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-8">
-          <h3 id="demo">Column 1</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+          <h3 id="demo">Meld je aan!</h3>
+          <p>Vul je gegevens hieronder in om je aan te melden</p>
         </div>
-        <div class="col-sm-4 aanmelden noselect">
+        <div class="col-sm-6">
           <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als passagier  <span id="passagier-icon" class="glyphicon glyphicon-chevron-down"></h3>
             <form name="frmRegistration" method="post" action="" id="aanmelden-passagier">
               <table border="0" width="500" align="center">
@@ -86,8 +85,9 @@
               </table>
             </form>
             <div class="midden">
-            <div class="onderbreking"></div><p class="onderbreking-text">of <br /></p><div class="onderbreking"></div>
           </div>
+        </div>
+        <div class="col-sm-6">
             <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als chauffeur  <span id="chauffeur-icon" class="glyphicon glyphicon-chevron-up"></h3>
             <form name="frmRegistration" method="post" action="">
             	<table border="0" width="500" align="center" id="aanmelden-chauffeur">
@@ -269,121 +269,9 @@
             		</tr>
             	</table>
             </form>
-        </div>
       </div>
     </div>
-    <div id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 51.766, lng: 4.520},
-          zoom: 11,
-          styles: [
-              {
-                  "featureType": "administrative",
-                  "elementType": "all",
-                  "stylers": [
-                      {
-                          "saturation": "-100"
-                      }]},
-              {
-                  "featureType": "administrative.province",
-                  "elementType": "all",
-                  "stylers": [
-                      {
-                          "visibility": "off"
-                      }]},
-              {
-                  "featureType": "landscape",
-                  "elementType": "all",
-                  "stylers": [
-                      {
-                          "saturation": -100
-                      },
-                      {
-                          "lightness": 65
-                      },
-                      {
-                          "visibility": "on"
-                      }]},
-              {
-                  "featureType": "poi",
-                  "elementType": "all",
-                  "stylers": [
-                      {
-                          "saturation": -100
-                      },
-                      {
-                          "lightness": "50"
-                      },
-                      {
-                          "visibility": "simplified"
-                      }]},
-              {
-                  "featureType": "road",
-                  "elementType": "all",
-                  "stylers": [
-                      {
-                          "saturation": "-100"
-                      }]},
-              {
-                  "featureType": "road.highway",
-                  "elementType": "all",
-                  "stylers": [
-                      {
-                          "visibility": "simplified"
-                      }]},
-              {
-                  "featureType": "road.arterial",
-                  "elementType": "all",
-                  "stylers": [
-                      {
-                          "lightness": "30"
-                      }]},
-              {
-                  "featureType": "road.local",
-                  "elementType": "all",
-                  "stylers": [
-                      {
-                          "lightness": "40"
-                      }]},
-              {
-                  "featureType": "transit",
-                  "elementType": "all",
-                  "stylers": [
-                      {
-                          "saturation": -100
-                      },
-                      {
-                          "visibility": "simplified"
-                      }]},
-              {
-                  "featureType": "water",
-                  "elementType": "geometry",
-                  "stylers": [{
-                          "hue": "#ffff00"
-                      },
-                      {
-                          "lightness": -25
-                      },
-                      {
-                          "saturation": -97
-                      }]},
-              {
-                  "featureType": "water",
-                  "elementType": "labels",
-                  "stylers": [
-                      {
-                          "lightness": -25
-                      },
-                      {
-                          "saturation": -100
-        }]}]});
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAp41bC-pq4-49tDrcpLqAj1LTwRx3HYY4&callback=initMap"
-    async defer></script>
+    </div>
 <div class="footer_page">
   <p class="footer_text">(c) 2017 CSG De Willem van Oranje</p>
 </div>

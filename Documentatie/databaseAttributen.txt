@@ -1,0 +1,6 @@
+Email = userEmail
+Voornaam = firstName
+Achternaam = lastName
+Wachtwoord = password
+Bevestig = confirm_password
+Geslacht = gender

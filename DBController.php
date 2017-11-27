@@ -2,7 +2,7 @@
 
 session_start();
 
-$mysql_host = "http://www.dewillem.nu/phpmyadmin";
+$mysql_host = "http://www.dewillem.nu/phpmyadmin/";
 $mysql_user = "v6vervoer04";
 $mysql_pwd = "v6vervoer04&";
 $mysql_db = "v6vervoer04";
