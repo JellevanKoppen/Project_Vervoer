@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="css/master.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/script/master.js"></script>
+    <script src="script/master.js"></script>
     <title>.</title>
   </head>
   <body>
@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="contact.php">Contact</a></li>
           <li><a href="#">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
           <li><a href="#">Ritprijsopgave</a></li>
@@ -47,9 +47,61 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
           <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
         </div>
+
+        <!-- DIT IS HET PHP GEDEELTE  -->
+        <?php
+        include 'Dbconnect.php';
+
+        $voornaam = $_POST["firstName"];
+        $achternaam = $_POST['lastName'];
+        $wachtwoord = $_POST['password'];
+        $email = $_POST['userEmail'];
+        $geslacht = $_POST['gender'];
+
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          foreach($_POST as $key=>$value) {
+
+          	if(empty($_POST[$key])) {
+          	$error_message = "Niet alle velden zijn ingevuld";
+            header("Refresh:3");
+          	break;
+          	}
+          }
+
+          if($_POST['password'] != $_POST['confirm_password']){
+            $error_message = 'Wachtwoorden zijn niet hetzelfde<br>';
+            header("Refresh:3");
+          }
+
+          if(!isset($error_message)) {
+          	if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
+            	$error_message = "Geen geldig email addres";
+              header("Refresh:3");
+          	}
+          }
+
+          if(!isset($error_message)) {
+            if(empty($_POST["gender"])) {
+              $error_message = " Kies een geslacht";
+              header("Refresh:3");
+            }
+          }
+      } else {
+          $sql="INSERT INTO vasteklanten (Naam, Achternaam, Wachtwoord, Email, Geslacht) VALUES('".$voornaam."','".$achternaam."','".md5($wachtwoord)."','".$email."','".$geslacht."')";
+          if(mysqli_query($conn, $sql)){
+            $error_message = "";
+            $success_message = "U bent succesvol geregistreerd";
+            unset($_POST);
+          } else {
+            $error_message = "Er is een fout opgetreden: " . mysqli_error($conn);
+          }
+      }
+         ?>
+
         <div class="col-sm-4 aanmelden noselect">
           <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als passagier  <span id="passagier-icon" class="glyphicon glyphicon-chevron-down"></h3>
-            <form name="frmRegistration" method="post" action="" id="aanmelden-passagier">
+            <form name="frmRegistration" method="post" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>" id="aanmelden-passagier">
               <table border="0" width="500" align="center">
                 <?php if(!empty($success_message)) { ?>
                 <div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
@@ -58,25 +110,25 @@
                 <div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
                 <?php } ?>
                 <tr>
-                    <td><input type="text" placeholder="Email" class="inputBox" name="userEmail" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>"></td>
+                    <td><input type="text" placeholder="Email" class="inputBox" name="userEmail" value=""></td>
                 </tr>
                 <tr>
-                  <td><input type="text" placeholder="Voornaam" class="inputBox" name="firstName" value="<?php if(isset($_POST['firstName'])) echo $_POST['firstName']; ?>"></td>
+                  <td><input type="text" placeholder="Voornaam" class="inputBox" name="firstName"></td>
                 </tr>
                 <tr>
-                  <td><input type="text" placeholder="Achternaam" class="inputBox" name="lastName" value="<?php if(isset($_POST['lastName'])) echo $_POST['lastName']; ?>"></td>
+                  <td><input type="text" placeholder="Achternaam" class="inputBox" name="lastName"></td>
                 </tr>
                 <tr>
-                  <td><input type="password" placeholder="Wachtwoord" class="inputBox" name="password" value=""></td>
+                  <td><input type="password" placeholder="Wachtwoord" class="inputBox" name="password"></td>
                 </tr>
                 <tr>
-                  <td><input type="password" placeholder="Bevestig wachtwoord" class="inputBox" name="confirm_password" value=""></td>
+                  <td><input type="password" placeholder="Bevestig wachtwoord" class="inputBox" name="confirm_password"></td>
                 </tr>
                 <tr>
                   <td>
-                  <input type="radio" name="gender" value="Man" <?php if(isset($_POST['gender']) && $_POST['gender']=="Man") { ?>checked<?php  } ?>> Man
-                  <input type="radio" name="gender" value="Vrouw" <?php if(isset($_POST['gender']) && $_POST['gender']=="Vrouw") { ?>checked<?php  } ?>> Vrouw
-                  <input type="radio" name="gender" value="Onzijdig" <?php if(isset($_POST['gender']) && $_POST['gender']=="Onzijdig") { ?>checked<?php  } ?>> Onzijdig
+                  <input type="radio" name="gender" value="Man"> Man
+                  <input type="radio" name="gender" value="Vrouw"> Vrouw
+                  <input type="radio" name="gender" value="Onzijdig"> Onzijdig
                   </td>
                 </tr>
                 <tr>
@@ -89,7 +141,7 @@
             <div class="onderbreking"></div><p class="onderbreking-text">of <br /></p><div class="onderbreking"></div>
           </div>
             <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als chauffeur  <span id="chauffeur-icon" class="glyphicon glyphicon-chevron-up"></h3>
-            <form name="frmRegistration" method="post" action="">
+            <form name="frmRegistration" method="post" id="aanmelden-passagier" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>">
             	<table border="0" width="500" align="center" id="aanmelden-chauffeur">
             		<?php if(!empty($success_message)) { ?>
             		<div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
@@ -97,21 +149,21 @@
             		<?php if(!empty($error_message)) { ?>
             		<div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
             		<?php } ?>
-            		<tr>
-              			<td><input type="text" placeholder="Email" class="inputBox" name="userEmail" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>"></td>
-            		</tr>
-            		<tr>
-            			<td><input type="text" placeholder="Voornaam" class="inputBox" name="firstName" value="<?php if(isset($_POST['firstName'])) echo $_POST['firstName']; ?>"></td>
-            		</tr>
-            		<tr>
-            			<td><input type="text" placeholder="Achternaam" class="inputBox" name="lastName" value="<?php if(isset($_POST['lastName'])) echo $_POST['lastName']; ?>"></td>
-            		</tr>
-            		<tr>
-            			<td><input type="password" placeholder="Wachtwoord" class="inputBox" name="password" value=""></td>
-            		</tr>
-            		<tr>
-            			<td><input type="password" placeholder="Bevestig wachtwoord" class="inputBox" name="confirm_password" value=""></td>
-            		</tr>
+                <tr>
+                    <td><input type="text" placeholder="Email" class="inputBox" size="50" name="userEmail2"></td>
+                </tr>
+                <tr>
+                  <td><input type="text" placeholder="Voornaam" class="inputBox" size="30" name="firstName2"></td>
+                </tr>
+                <tr>
+                  <td><input type="text" placeholder="Achternaam" class="inputBox" size="30" name="lastName2"></td>
+                </tr>
+                <tr>
+                  <td><input type="password" placeholder="Wachtwoord" class="inputBox" size="50" name="password2"></td>
+                </tr>
+                <tr>
+                  <td><input type="password" placeholder="Bevestig wachtwoord" class="inputBox" size="50" name="confirm_password"></td>
+                </tr>
                 <tr>
                   <td colspan="2">
                   <p>Geboortedatum: </p>
@@ -257,13 +309,13 @@
                     </select>
                   </td>
                 </tr>
-            		<tr>
-            			<td>
-                  <input type="radio" name="gender" value="Man" <?php if(isset($_POST['gender']) && $_POST['gender']=="Man") { ?>checked<?php  } ?>> Man
-            			<input type="radio" name="gender" value="Vrouw" <?php if(isset($_POST['gender']) && $_POST['gender']=="Vrouw") { ?>checked<?php  } ?>> Vrouw
-                  <input type="radio" name="gender" value="Onzijdig" <?php if(isset($_POST['gender']) && $_POST['gender']=="Onzijdig") { ?>checked<?php  } ?>> Onzijdig
-            			</td>
-            		</tr>
+                <tr>
+                  <td>
+                  <input type="radio" name="gender" value="Man"> Man
+                  <input type="radio" name="gender" value="Vrouw"> Vrouw
+                  <input type="radio" name="gender" value="Onzijdig"> Onzijdig
+                  </td>
+                </tr>
             		<tr>
             			<td><input type="submit" name="register-user" value="Registreer" class="btnRegister"></td>
             		</tr>

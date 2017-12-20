@@ -39,39 +39,48 @@
       </div>
       </div>
     </nav>
+    </div>
     <div class="container">
-      <div class="col-sm-8">
-        <h3>Bereid je voor!</h3>
-        <p>Bereid je voor om een nieuwe manier van transport te ontdekken...</p>
-        <p>Nadat je hebt ingelogt zal er een nieuwe wereld van transport voor je open gaan. <br />
-        Goedkoop, gemakkelijk, snel en veilig! </p>
-        <p>Waar wacht je nog op?</p>
-        <p>Nieuw hier?</p>
-        <a href="aanmelden.php"><button class="btnRegister">Registreren</button></a>
-      </div>
-      <div class="col-sm-4">
-      <h3>Log in</h3>
-      <form name="login" method="post" action="">
-        <table border="0" width="500" align="center">
-          <?php if(!empty($success_message)) { ?>
-          <div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
-          <?php } ?>
-          <?php if(!empty($error_message)) { ?>
-          <div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
-          <?php } ?>
-          <tr>
-              <td><input type="text" placeholder="Email" class="inputBox" name="userEmail" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>"></td>
-          </tr>
-          <tr>
-            <td><input type="password" placeholder="Wachtwoord" class="inputBox" name="password" value=""></td>
-          </tr>
-          <tr>
-            <td>
-            <input type="submit" name="login_gebruiker" value="Login" class="btnRegister"></td>
-          </tr>
-        </table>
-      </form>
+      <h3>Vragen?</h3>
+      <p>Stuur ons een bericht:</p>
+
+      <form name="contactform" method="post" action="send_form_email.php">
+<table>
+<tr>
+ <td valign="top" class="contact">
+  <label for="first_name">Naam</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="first_name" maxlength="50" size="30">
+ </td>
+</tr>
+<tr>
+ <td valign="top" class="contact">
+  <label for="email">Email Address</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="email" maxlength="80" size="30">
+ </td>
+</tr>
+<tr>
+ <td valign="top" class="contact">
+  <label for="comments">Bericht</label>
+ </td>
+ <td valign="top">
+  <textarea  name="comments" maxlength="1000" cols="25" rows="6"></textarea>
+ </td>
+</tr>
+<tr>
+ <td colspan="2" style="text-align:center">
+  <input class="btnRegister" type="submit" value="Submit">
+ </td>
+</tr>
+</table>
+</form>
+
     </div>
-    </div>
+<div class="footer_page">
+  <p class="footer_text">(c) 2017 CSG De Willem van Oranje</p>
+</div>
   </body>
 </html>

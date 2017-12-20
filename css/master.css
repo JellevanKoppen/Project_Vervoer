@@ -8,6 +8,11 @@ nav{
   z-index: 2;
 }
 
+.contact{
+  padding-bottom: 10px;
+  padding-right: 5px;
+}
+
 .footer_page{
   background: #cccccc;
   width: 100%;
