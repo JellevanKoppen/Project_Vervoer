@@ -47,17 +47,9 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
           <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
         </div>
-
         <!-- DIT IS HET PHP GEDEELTE  -->
         <?php
         include 'Dbconnect.php';
-
-        $voornaam = $_POST["firstName"];
-        $achternaam = $_POST['lastName'];
-        $wachtwoord = $_POST['password'];
-        $email = $_POST['userEmail'];
-        $geslacht = $_POST['gender'];
-
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
           foreach($_POST as $key=>$value) {
@@ -67,35 +59,34 @@
             header("Refresh:3");
           	break;
           	}
-          }
-
-          if($_POST['password'] != $_POST['confirm_password']){
+          } if($_POST['password'] != $_POST['confirm_password']){
             $error_message = 'Wachtwoorden zijn niet hetzelfde<br>';
             header("Refresh:3");
-          }
-
-          if(!isset($error_message)) {
+          } else if(!isset($error_message)) {
           	if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
             	$error_message = "Geen geldig email addres";
               header("Refresh:3");
           	}
-          }
-
-          if(!isset($error_message)) {
+          } else if(!isset($error_message)) {
             if(empty($_POST["gender"])) {
               $error_message = " Kies een geslacht";
               header("Refresh:3");
             }
-          }
-      } else {
-          $sql="INSERT INTO vasteklanten (Naam, Achternaam, Wachtwoord, Email, Geslacht) VALUES('".$voornaam."','".$achternaam."','".md5($wachtwoord)."','".$email."','".$geslacht."')";
-          if(mysqli_query($conn, $sql)){
-            $error_message = "";
-            $success_message = "U bent succesvol geregistreerd";
-            unset($_POST);
           } else {
+        $voornaam=$_POST["firstName"];
+        $achternaam=$_POST['lastName'];
+        $wachtwoord=$_POST['password'];
+        $email=$_POST['userEmail'];
+        $geslacht=$_POST['gender'];
+        $sql="INSERT INTO vasteklanten (Naam, Achternaam, Wachtwoord, Email, Geslacht) VALUES('".$voornaam."','".$achternaam."','".md5($wachtwoord)."','".$email."','".$geslacht."')";
+        if(mysqli_query($conn, $sql)){
+          $error_message = "";
+          $success_message = "U bent succesvol geregistreerd";
+          unset($_POST);
+        } else {
             $error_message = "Er is een fout opgetreden: " . mysqli_error($conn);
           }
+        }
       }
          ?>
 
@@ -141,6 +132,7 @@
             <div class="onderbreking"></div><p class="onderbreking-text">of <br /></p><div class="onderbreking"></div>
           </div>
             <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als chauffeur  <span id="chauffeur-icon" class="glyphicon glyphicon-chevron-up"></h3>
+
             <form name="frmRegistration" method="post" id="aanmelden-passagier" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>">
             	<table border="0" width="500" align="center" id="aanmelden-chauffeur">
             		<?php if(!empty($success_message)) { ?>
