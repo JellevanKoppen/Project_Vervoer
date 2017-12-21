@@ -94,10 +94,11 @@
           <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als passagier  <span id="passagier-icon" class="glyphicon glyphicon-chevron-down"></h3>
             <form name="frmRegistration" method="post" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>" id="aanmelden-passagier">
               <table border="0" width="500" align="center">
+
                 <?php if(!empty($success_message)) { ?>
                 <div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
                 <?php } ?>
-                <?php if(!empty($error_message)) { ?>
+                <?php if(!empty($error_message rui)) { ?>
                 <div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
                 <?php } ?>
                 <tr>

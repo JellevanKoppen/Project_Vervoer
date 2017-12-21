@@ -126,6 +126,7 @@ nav{
 	border: #ffd5da 1px solid;
 	color: #d6001c;
 	border-radius: 4px;
+  width: 100%;
 }
 .success-message {
 	padding: 7px 10px;
@@ -133,6 +134,7 @@ nav{
 	border: #c3d0b5 1px solid;
 	color: #027506;
 	border-radius: 4px;
+  width: 100%;
 }
 .demo-table {
 	background: #d9eeff;
