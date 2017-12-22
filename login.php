@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="css/master.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/script/master.js"></script>
+    <script src="script/master.js"></script>
     <title>.</title>
   </head>
   <body>
@@ -24,7 +24,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.php">Home</a></li>
+          <li><a href="index.php">Home</a></li>
           <li><a href="contact.php">Contact</a></li>
           <li><a href="#">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
@@ -33,12 +33,44 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li style="display: none;"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
-          <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
+          <li class="active"><a href="login.php"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
           <li><a href="aanmelden.php"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
         </ul>
       </div>
       </div>
     </nav>
+    <?php
+    include 'Dbconnect.php';
+    $required = array("userEmail","password");
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $correct = "True";
+      foreach($required as $field) {
+        if(empty($_POST[$field])) {
+        $error_message = "Gebruikersnaam en/of Wachtwoord niet ingevuld";
+        header("Refresh:3");
+        $correct = "False";
+        break;
+      }
+
+      }
+      if($correct == "True"){
+        $myusername = mysqli_real_escape_string($conn,$_POST['userEmail']);
+        $mypassword = mysqli_real_escape_string($conn,md5($_POST['password']));
+        $sql = "SELECT * FROM (SELECT Email,Wachtwoord FROM vasteklanten UNION SELECT Email,Wachtwoord FROM chauffeurs ) AS DB WHERE DB.Email = '$myusername' and DB.Wachtwoord = '$mypassword'";
+        $result = mysqli_query($conn, $sql);
+        $count = mysqli_num_rows($result);
+
+        if($count == 1){
+          $error_message = "";
+          $success_message = "U bent ingelogt!";
+        } else {
+          $error_message = "Geen gebruiker gevonden. Controleer je Email en/of Wachtwoord";
+          $succes_message = "";
+        }
+      }
+    }
+
+     ?>
     <div class="container">
       <div class="col-sm-8">
         <h3>Bereid je voor!</h3>
@@ -50,17 +82,17 @@
         <a href="aanmelden.php"><button class="btnRegister">Registreren</button></a>
       </div>
       <div class="col-sm-4">
+        <?php if(!empty($success_message)) { ?>
+        <div class="success-message col-sm-4 col-md-12"><?php if(isset($success_message)) echo $success_message; ?></div>
+        <?php } ?>
+        <?php if(!empty($error_message)) { ?>
+        <div class="error-message col-sm-4 col-md-12"><?php if(isset($error_message)) echo $error_message; ?></div>
+        <?php } ?>
       <h3>Log in</h3>
       <form name="login" method="post" action="">
         <table border="0" width="500" align="center">
-          <?php if(!empty($success_message)) { ?>
-          <div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
-          <?php } ?>
-          <?php if(!empty($error_message)) { ?>
-          <div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
-          <?php } ?>
           <tr>
-              <td><input type="text" placeholder="Email" class="inputBox" name="userEmail" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>"></td>
+              <td><input type="text" placeholder="Email" class="inputBox" name="userEmail" value=""></td>
           </tr>
           <tr>
             <td><input type="password" placeholder="Wachtwoord" class="inputBox" name="password" value=""></td>

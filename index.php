@@ -43,64 +43,92 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-8">
-          <h3 id="demo">Column 1</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+          <h3 id="demo">Welkom</h3>
+          <p>Hier komt de officiele nieuwe site van de Willem van Oranje</p>
+          <p>Maak alvast een account aan om er als eerste bij te zijn zodra we online zijn! Of kom later terug om de nieuwe veranderingen te kunnen zien!</p>
+          <p>Functionaliteiten op dit moment: <br /> - Account aanmaken (zowel klant als chauffeur)</p>
         </div>
         <!-- DIT IS HET PHP GEDEELTE  -->
         <?php
         include 'Dbconnect.php';
-
+        $correct = "True";
+        $required = array("firstName","lastName","password","userEmail","gender","confirm_password");
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          foreach($_POST as $key=>$value) {
-
-          	if(empty($_POST[$key])) {
+          foreach($required as $field) {
+          	if(empty($_POST[$field])) {
           	$error_message = "Niet alle velden zijn ingevuld";
             header("Refresh:3");
+            $correct = "False";
           	break;
           	}
-          } if($_POST['password'] != $_POST['confirm_password']){
-            $error_message = 'Wachtwoorden zijn niet hetzelfde<br>';
+          }
+          if($_POST['password'] != $_POST['confirm_password']){
+            $error_message = 'Wachtwoorden zijn niet hetzelfde';
             header("Refresh:3");
-          } else if(!isset($error_message)) {
+            $correct = "False";
+          } elseif(!isset($error_message)) {
           	if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
             	$error_message = "Geen geldig email addres";
               header("Refresh:3");
+              $correct = "False";
           	}
-          } else if(!isset($error_message)) {
+          } elseif(!isset($error_message)) {
             if(empty($_POST["gender"])) {
               $error_message = " Kies een geslacht";
               header("Refresh:3");
+              $correct = "False";
             }
-          } else {
-        $voornaam=$_POST["firstName"];
-        $achternaam=$_POST['lastName'];
-        $wachtwoord=$_POST['password'];
-        $email=$_POST['userEmail'];
-        $geslacht=$_POST['gender'];
-        $sql="INSERT INTO vasteklanten (Naam, Achternaam, Wachtwoord, Email, Geslacht) VALUES('".$voornaam."','".$achternaam."','".md5($wachtwoord)."','".$email."','".$geslacht."')";
-        if(mysqli_query($conn, $sql)){
-          $error_message = "";
-          $success_message = "U bent succesvol geregistreerd";
-          unset($_POST);
-        } else {
-            $error_message = "Er is een fout opgetreden: " . mysqli_error($conn);
           }
+          if(isset($_POST["register-user"])){
+            if($correct == "True") {
+            $voornaam=$_POST["firstName"];
+            $achternaam=$_POST['lastName'];
+            $wachtwoord=$_POST['password'];
+            $email=$_POST['userEmail'];
+            @$geslacht=$_POST['gender'];
+            $sql="INSERT INTO vasteklanten (Naam, Achternaam, Wachtwoord, Email, Geslacht) VALUES('".$voornaam."','".$achternaam."','".md5($wachtwoord)."','".$email."','".$geslacht."')";
+            $result = mysqli_query($conn, $sql);
+            if($result){
+              $error_message = "";
+              $success_message = "U bent succesvol geregistreerd";
+            } else {
+                $error_message = "Er is een fout opgetreden: " . mysqli_error($conn);
+              }
+            }
+          } elseif(isset($_POST["register-chauffeur"])){
+            if($correct == "True") {
+            $voornaam=$_POST["firstName"];
+            $achternaam=$_POST['lastName'];
+            $wachtwoord=$_POST['password'];
+            $email=$_POST['userEmail'];
+            @$geslacht=$_POST['gender'];
+            $geboortedatum = $_POST['jaar']."-". $_POST['maand']."-".$_POST['dag'];
+            $sql="INSERT INTO chauffeurs (Naam, Achternaam, Geboortedatum, Email, Wachtwoord, Geslacht) VALUES('".$voornaam."','".$achternaam."','".$geboortedatum."','".$email."','".md5($wachtwoord)."','".$geslacht."')";
+            $result = mysqli_query($conn, $sql);
+            if($result){
+              $error_message = "";
+              $success_message = "U bent succesvol geregistreerd";
+              header("Refresh:5");
+            } else {
+                $error_message = "Er is een fout opgetreden: " . mysqli_error($conn);
+                header("Refresh:3");
+              }
+            }
+          }
+
         }
-      }
          ?>
 
         <div class="col-sm-4 aanmelden noselect">
+          <?php if(!empty($success_message)) { ?>
+          <div class="success-message col-sm-4 col-md-12"><?php if(isset($success_message)) echo $success_message; ?></div>
+          <?php } ?>
+          <?php if(!empty($error_message)) { ?>
+          <div class="error-message col-sm-4 col-md-12"><?php if(isset($error_message)) echo $error_message; ?></div>
+          <?php } ?>
           <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als passagier  <span id="passagier-icon" class="glyphicon glyphicon-chevron-down"></h3>
             <form name="frmRegistration" method="post" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>" id="aanmelden-passagier">
               <table border="0" width="500" align="center">
-
-                <?php if(!empty($success_message)) { ?>
-                <div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
-                <?php } ?>
-                <?php if(!empty($error_message rui)) { ?>
-                <div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
-                <?php } ?>
                 <tr>
                     <td><input type="text" placeholder="Email" class="inputBox" name="userEmail" value=""></td>
                 </tr>
@@ -132,30 +160,24 @@
             <div class="midden">
             <div class="onderbreking"></div><p class="onderbreking-text">of <br /></p><div class="onderbreking"></div>
           </div>
-            <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als chauffeur  <span id="chauffeur-icon" class="glyphicon glyphicon-chevron-up"></h3>
+            <h3 class="title-aanmelden" onclick="switchRegistratie()">Aanmelden als chauffeur <span id="chauffeur-icon" class="glyphicon glyphicon-chevron-up"></h3>
 
-            <form name="frmRegistration" method="post" id="aanmelden-passagier" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>">
-            	<table border="0" width="500" align="center" id="aanmelden-chauffeur">
-            		<?php if(!empty($success_message)) { ?>
-            		<div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
-            		<?php } ?>
-            		<?php if(!empty($error_message)) { ?>
-            		<div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
-            		<?php } ?>
+            <form name="frmRegistration" method="post" id="aanmelden-chauffeur" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>">
+            	<table border="0" width="500" align="center">
                 <tr>
-                    <td><input type="text" placeholder="Email" class="inputBox" size="50" name="userEmail2"></td>
+                    <td><input type="text" placeholder="Email" class="inputBox" name="userEmail"></td>
                 </tr>
                 <tr>
-                  <td><input type="text" placeholder="Voornaam" class="inputBox" size="30" name="firstName2"></td>
+                  <td><input type="text" placeholder="Voornaam" class="inputBox" name="firstName"></td>
                 </tr>
                 <tr>
-                  <td><input type="text" placeholder="Achternaam" class="inputBox" size="30" name="lastName2"></td>
+                  <td><input type="text" placeholder="Achternaam" class="inputBox" name="lastName"></td>
                 </tr>
                 <tr>
-                  <td><input type="password" placeholder="Wachtwoord" class="inputBox" size="50" name="password2"></td>
+                  <td><input type="password" placeholder="Wachtwoord" class="inputBox" name="password"></td>
                 </tr>
                 <tr>
-                  <td><input type="password" placeholder="Bevestig wachtwoord" class="inputBox" size="50" name="confirm_password"></td>
+                  <td><input type="password" placeholder="Bevestig wachtwoord" class="inputBox" name="confirm_password"></td>
                 </tr>
                 <tr>
                   <td colspan="2">
@@ -310,7 +332,7 @@
                   </td>
                 </tr>
             		<tr>
-            			<td><input type="submit" name="register-user" value="Registreer" class="btnRegister"></td>
+            			<td><input type="submit" name="register-chauffeur" value="Registreer" class="btnRegister"></td>
             		</tr>
             	</table>
             </form>
