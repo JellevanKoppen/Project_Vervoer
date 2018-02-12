@@ -9,6 +9,16 @@ nav{
   z-index: 2;
 }
 
+.spacer{
+  height: 1px;
+  background: #cccccc;
+  width: 100%;
+  margin: 0 2% 0 2%;
+  display: block;
+  float: left;
+  margin-top: 10px;
+}
+
 .contact{
   padding-bottom: 10px;
   padding-right: 5px;
@@ -77,6 +87,53 @@ nav{
   margin: 0 auto;
 }
 
+.select{
+  opacity: 0.6;
+}
+
+.socials{
+  float: left;
+  margin: auto;
+}
+
+.rechter-icoon{
+  float:left;
+}
+
+.profielfoto{
+  margin: 0 auto;
+  float: left;
+}
+
+@media screen and (max-width: 768px){
+  .profielfoto{
+    float: none;
+    margin-left: 12%;
+    margin-right: 12%;
+  }
+
+  .socials{
+    float: none;
+    margin: 0 auto 25px auto;
+  }
+
+  .rechter-icoon{
+    float: right;
+  }
+}
+
+.select:hover{
+  /* Firefox */
+  -moz-transition: all 0.5s ease;
+  /* WebKit */
+  -webkit-transition: all 0.5s ease;
+  /* Opera */
+  -o-transition: all 0.5s ease;
+  /* Standard */
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+
 .noselect{
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -119,6 +176,22 @@ nav{
 
 #aanmelden-chauffeur{
   display: block;
+}
+
+.persoon{
+  border-radius: 10px;
+}
+
+.persoon:hover{
+  /* Firefox */
+  -moz-transition: all 0.5s ease;
+  /* WebKit */
+  -webkit-transition: all 0.5s ease;
+  /* Opera */
+  -o-transition: all 0.5s ease;
+  /* Standard */
+  transition: all 0.5s ease;
+    background: #cccccc;
 }
 
 .error-message {

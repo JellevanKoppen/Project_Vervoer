@@ -43,7 +43,7 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-8">
-              <h3 id="demo">Meld je aan!</h3>
+              <h3>Meld je aan!</h3>
               <p>Vul je gegevens hieronder in om je aan te melden</p>
             </div>
             <!-- DIT IS HET PHP GEDEELTE  -->
@@ -338,7 +338,7 @@
           </div>
         </div>
 <div class="footer_page">
-  <p class="footer_text">(c) 2017 CSG De Willem van Oranje</p>
+  <p class="footer_text">(c) 2018 CSG De Willem van Oranje</p>
 </div>
   </body>
 </html>

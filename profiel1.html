@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="css/master.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/script/master.js"></script>
-    <title>.</title>
+    <script src="script/master.js"></script>
+    <title>Stef Wijntje</title>
   </head>
   <body>
     <div class="col-md-12" id="titlescreen">
@@ -24,9 +24,9 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.php">Home</a></li>
+          <li><a href="index.php">Home</a></li>
           <li><a href="contact.php">Contact</a></li>
-          <li><a href="#">Wie zijn wij?</a></li>
+          <li class="active"><a href="about.html">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
           <li><a href="#">Ritprijsopgave</a></li>
           <li style="display: none;"><a href="#">Overzicht</a></li>
@@ -40,45 +40,29 @@
       </div>
     </nav>
     </div>
-    <div class="container">
-      <h3>Vragen?</h3>
-      <p>Stuur ons een bericht:</p>
-
-      <form name="contactform" method="post" action="send_form_email.php">
-<table>
-<tr>
- <td valign="top" class="contact">
-  <label for="first_name">Naam</label>
- </td>
- <td valign="top">
-  <input  type="text" name="first_name" maxlength="50" size="30">
- </td>
-</tr>
-<tr>
- <td valign="top" class="contact">
-  <label for="email">Email Address</label>
- </td>
- <td valign="top">
-  <input  type="text" name="email" maxlength="80" size="30">
- </td>
-</tr>
-<tr>
- <td valign="top" class="contact">
-  <label for="comments">Bericht</label>
- </td>
- <td valign="top">
-  <textarea  name="comments" maxlength="1000" cols="25" rows="6"></textarea>
- </td>
-</tr>
-<tr>
- <td colspan="2" style="text-align:center">
-  <input class="btnRegister" type="submit" value="Submit">
- </td>
-</tr>
-</table>
-</form>
-
+    <div class="container-fluid">
+    <div class="col-sm-3">
+      <img src="./images/stef.jpg" alt="Profielfoto Stef Wijntje" class="profielfoto img-circle img-responsive" width="75%" height="75%" style="min-width:120px;">
     </div>
+    <div class="col-sm-3">
+      <h3>Stef Wijntje <br /><small>Site Admin</small></h3>
+      <p>
+        Interesses: L Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+      </p>
+      <p>
+        Hobbies: Voetballen , zuipen, etc.
+      </p>
+    </div>
+    <div class="col-sm-1 socials">
+      <a href="https://www.facebook.com/stef.wijntje">
+        <img class="select" src="./images/facebook.png" alt="https://www.seeklogo.net/wp-content/uploads/2016/09/facebook-icon-preview-200x200.png" class="img-circle img-responsive" width="30%" height="30%" style="min-width:120px; margin-bottom: 25px;">
+      </a><a href="http://www.dewillem.nl/">
+        <img class="select rechter-icoon" src="./images/willem.png" alt="https://i0.wp.com/www.hoekschnieuws.nl/wp-content/uploads/2017/05/WILLEM.png?ssl=1" class="img-circle img-responsive" width="30%" height="30%" style="min-width:120px; margin-bottom: 25px;">
+      </a>
+    </div>
+  </div>
 <div class="footer_page">
   <p class="footer_text">(c) 2018 CSG De Willem van Oranje</p>
 </div>

@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="script/master.js"></script>
-    <title>.</title>
+    <title>Welkom</title>
   </head>
   <body>
     <div class="col-md-12" id="titlescreen">
@@ -26,7 +26,7 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="index.php">Home</a></li>
           <li><a href="contact.php">Contact</a></li>
-          <li><a href="#">Wie zijn wij?</a></li>
+          <li><a href="about.html">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
           <li><a href="#">Ritprijsopgave</a></li>
           <li style="display: none;"><a href="#">Overzicht</a></li>
@@ -43,7 +43,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-8">
-          <h3 id="demo">Welkom</h3>
+          <h3>Welkom</h3>
           <p>Hier komt de officiele nieuwe site van de Willem van Oranje</p>
           <p>Maak alvast een account aan om er als eerste bij te zijn zodra we online zijn! Of kom later terug om de nieuwe veranderingen te kunnen zien!</p>
           <p>Functionaliteiten op dit moment: <br /> - Account aanmaken (zowel klant als chauffeur)</p>
@@ -452,7 +452,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAp41bC-pq4-49tDrcpLqAj1LTwRx3HYY4&callback=initMap"
     async defer></script>
 <div class="footer_page">
-  <p class="footer_text">(c) 2017 CSG De Willem van Oranje</p>
+  <p class="footer_text">(c) 2018 CSG De Willem van Oranje</p>
 </div>
   </body>
 </html>
