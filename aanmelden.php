@@ -8,9 +8,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="script/master.js"></script>
-    <title>.</title>
+    <title>Aanmelden</title>
   </head>
   <body>
+    <?php
+    if(isset($_SESSION['ID'])){
+      if(!isset($_SESSION['Visited'])){
+        echo '<body onLoad="referDashboard()">';
+      }
+      $_SESSION['Visited'] = "true";
+      $show = "";
+    } else {
+    $show = "style='display: none'";
+    }?>
     <div class="col-md-12" id="titlescreen">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -29,7 +39,7 @@
           <li><a href="#">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
           <li><a href="#">Ritprijsopgave</a></li>
-          <li style="display: none;"><a href="#">Overzicht</a></li>
+          <li <?php echo $show;?>><a href="#">Overzicht</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li style="display: none;"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
@@ -44,7 +54,7 @@
           <div class="row">
             <div class="col-sm-8">
               <h3>Meld je aan!</h3>
-              <p>Vul je gegevens hieronder in om je aan te melden</p>
+              <p>Vul je gegevens hiernaast in om je aan te melden</p>
             </div>
             <!-- DIT IS HET PHP GEDEELTE  -->
             <?php

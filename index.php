@@ -8,9 +8,88 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="script/master.js"></script>
-    <title>Welkom</title>
+    <title>Home</title>
   </head>
   <body>
+    <!-- DIT IS HET PHP GEDEELTE  -->
+    <?php
+    include 'Dbconnect.php';
+
+    if(isset($_SESSION['ID'])){
+      if(!isset($_SESSION['Visited'])){
+        echo '<body onLoad="referDashboard()">';
+      }
+      $_SESSION['Visited'] = "true";
+      $show = "";
+    } else {
+    $show = "style='display: none'";
+    $correct = "True";
+    $required = array("firstName","lastName","password","userEmail","gender","confirm_password");
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      foreach($required as $field) {
+        if(empty($_POST[$field])) {
+        $error_message = "Niet alle velden zijn ingevuld";
+        header("Refresh:3");
+        $correct = "False";
+        break;
+        }
+      }
+      if($_POST['password'] != $_POST['confirm_password']){
+        $error_message = 'Wachtwoorden zijn niet hetzelfde';
+        header("Refresh:3");
+        $correct = "False";
+      } elseif(!isset($error_message)) {
+        if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
+          $error_message = "Geen geldig email addres";
+          header("Refresh:3");
+          $correct = "False";
+        }
+      } elseif(!isset($error_message)) {
+        if(empty($_POST["gender"])) {
+          $error_message = " Kies een geslacht";
+          header("Refresh:3");
+          $correct = "False";
+        }
+      }
+      if(isset($_POST["register-user"])){
+        if($correct == "True") {
+        $voornaam=$_POST["firstName"];
+        $achternaam=$_POST['lastName'];
+        $wachtwoord=$_POST['password'];
+        $email=$_POST['userEmail'];
+        @$geslacht=$_POST['gender'];
+        $sql="INSERT INTO vasteklanten (Naam, Achternaam, Wachtwoord, Email, Geslacht) VALUES('".$voornaam."','".$achternaam."','".md5($wachtwoord)."','".$email."','".$geslacht."')";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+          $error_message = "";
+          $success_message = "U bent succesvol geregistreerd";
+        } else {
+            $error_message = "Er is een fout opgetreden: " . mysqli_error($conn);
+          }
+        }
+      } elseif(isset($_POST["register-chauffeur"])){
+        if($correct == "True") {
+        $voornaam=$_POST["firstName"];
+        $achternaam=$_POST['lastName'];
+        $wachtwoord=$_POST['password'];
+        $email=$_POST['userEmail'];
+        @$geslacht=$_POST['gender'];
+        $geboortedatum = $_POST['jaar']."-". $_POST['maand']."-".$_POST['dag'];
+        $sql="INSERT INTO chauffeurs (Naam, Achternaam, Geboortedatum, Email, Wachtwoord, Geslacht) VALUES('".$voornaam."','".$achternaam."','".$geboortedatum."','".$email."','".md5($wachtwoord)."','".$geslacht."')";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+          $error_message = "";
+          $success_message = "U bent succesvol geregistreerd";
+          header("Refresh:5");
+        } else {
+            $error_message = "Er is een fout opgetreden: " . mysqli_error($conn);
+            header("Refresh:3");
+          }
+        }
+      }
+    }
+    }
+     ?>
     <div class="col-md-12" id="titlescreen">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -29,7 +108,7 @@
           <li><a href="about.html">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
           <li><a href="#">Ritprijsopgave</a></li>
-          <li style="display: none;"><a href="#">Overzicht</a></li>
+          <li <?php echo $show?>><a href="dashboard.php">Overzicht</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li style="display: none;"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
@@ -46,78 +125,8 @@
           <h3>Welkom</h3>
           <p>Hier komt de officiele nieuwe site van de Willem van Oranje</p>
           <p>Maak alvast een account aan om er als eerste bij te zijn zodra we online zijn! Of kom later terug om de nieuwe veranderingen te kunnen zien!</p>
-          <p>Functionaliteiten op dit moment: <br /> - Account aanmaken (zowel klant als chauffeur)</p>
+          <p>Functionaliteiten op dit moment: <br /> - Account aanmaken (zowel klant als chauffeur) <br /> - Je dashboard bekijken <br /> - Gegevens wijzigen</p>
         </div>
-        <!-- DIT IS HET PHP GEDEELTE  -->
-        <?php
-        include 'Dbconnect.php';
-        $correct = "True";
-        $required = array("firstName","lastName","password","userEmail","gender","confirm_password");
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          foreach($required as $field) {
-          	if(empty($_POST[$field])) {
-          	$error_message = "Niet alle velden zijn ingevuld";
-            header("Refresh:3");
-            $correct = "False";
-          	break;
-          	}
-          }
-          if($_POST['password'] != $_POST['confirm_password']){
-            $error_message = 'Wachtwoorden zijn niet hetzelfde';
-            header("Refresh:3");
-            $correct = "False";
-          } elseif(!isset($error_message)) {
-          	if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
-            	$error_message = "Geen geldig email addres";
-              header("Refresh:3");
-              $correct = "False";
-          	}
-          } elseif(!isset($error_message)) {
-            if(empty($_POST["gender"])) {
-              $error_message = " Kies een geslacht";
-              header("Refresh:3");
-              $correct = "False";
-            }
-          }
-          if(isset($_POST["register-user"])){
-            if($correct == "True") {
-            $voornaam=$_POST["firstName"];
-            $achternaam=$_POST['lastName'];
-            $wachtwoord=$_POST['password'];
-            $email=$_POST['userEmail'];
-            @$geslacht=$_POST['gender'];
-            $sql="INSERT INTO vasteklanten (Naam, Achternaam, Wachtwoord, Email, Geslacht) VALUES('".$voornaam."','".$achternaam."','".md5($wachtwoord)."','".$email."','".$geslacht."')";
-            $result = mysqli_query($conn, $sql);
-            if($result){
-              $error_message = "";
-              $success_message = "U bent succesvol geregistreerd";
-            } else {
-                $error_message = "Er is een fout opgetreden: " . mysqli_error($conn);
-              }
-            }
-          } elseif(isset($_POST["register-chauffeur"])){
-            if($correct == "True") {
-            $voornaam=$_POST["firstName"];
-            $achternaam=$_POST['lastName'];
-            $wachtwoord=$_POST['password'];
-            $email=$_POST['userEmail'];
-            @$geslacht=$_POST['gender'];
-            $geboortedatum = $_POST['jaar']."-". $_POST['maand']."-".$_POST['dag'];
-            $sql="INSERT INTO chauffeurs (Naam, Achternaam, Geboortedatum, Email, Wachtwoord, Geslacht) VALUES('".$voornaam."','".$achternaam."','".$geboortedatum."','".$email."','".md5($wachtwoord)."','".$geslacht."')";
-            $result = mysqli_query($conn, $sql);
-            if($result){
-              $error_message = "";
-              $success_message = "U bent succesvol geregistreerd";
-              header("Refresh:5");
-            } else {
-                $error_message = "Er is een fout opgetreden: " . mysqli_error($conn);
-                header("Refresh:3");
-              }
-            }
-          }
-
-        }
-         ?>
 
         <div class="col-sm-4 aanmelden noselect">
           <?php if(!empty($success_message)) { ?>

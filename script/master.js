@@ -19,3 +19,26 @@ function switchRegistratie(){
     casus = 0;
   }
 }
+
+function popUp(){
+  window.alert("Ik ben een melding!");
+}
+
+function showKlant(){
+  var hide = document.getElementById("hiderG");
+  hide.style.display = "block";
+}
+
+function showChauffeur(){
+  var hide = document.getElementById("hiderG");
+  hide.style.display = "block";
+}
+
+function referDashboard(){
+  if(confirm("Je bent al ingelogt, wil je je overzicht bekijken?")){
+    window.location.href = "http://www.dewillem.nu/v6/v6vervoer04/dashboard.php";
+  }
+  else {
+    //Niks
+  }
+}

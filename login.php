@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="script/master.js"></script>
-    <title>.</title>
+    <title>Login</title>
   </head>
   <body>
     <div class="col-md-12" id="titlescreen">
@@ -26,10 +26,9 @@
         <ul class="nav navbar-nav">
           <li><a href="index.php">Home</a></li>
           <li><a href="contact.php">Contact</a></li>
-          <li><a href="#">Wie zijn wij?</a></li>
+          <li><a href="about.html">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
           <li><a href="#">Ritprijsopgave</a></li>
-          <li style="display: none;"><a href="#">Overzicht</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li style="display: none;"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
@@ -41,6 +40,9 @@
     </nav>
     <?php
     include 'Dbconnect.php';
+    if(isset($_SESSION['ID'])){
+      header("refresh:1;url=dashboard.php");
+    } else {
     $required = array("userEmail","password");
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $correct = "True";
@@ -56,19 +58,27 @@
       if($correct == "True"){
         $myusername = mysqli_real_escape_string($conn,$_POST['userEmail']);
         $mypassword = mysqli_real_escape_string($conn,md5($_POST['password']));
-        $sql = "SELECT * FROM (SELECT Email,Wachtwoord FROM vasteklanten UNION SELECT Email,Wachtwoord FROM chauffeurs ) AS DB WHERE DB.Email = '$myusername' and DB.Wachtwoord = '$mypassword'";
-        $result = mysqli_query($conn, $sql);
-        $count = mysqli_num_rows($result);
+        $sql = "SELECT * FROM (SELECT Klantid, Naam, Email,Wachtwoord FROM vasteklanten UNION SELECT Chauffeurid, Naam, Email,Wachtwoord FROM chauffeurs ) AS DB WHERE DB.Email = '$myusername' and DB.Wachtwoord = '$mypassword'";
+        $num = mysqli_query($conn, $sql);
+        $count = mysqli_num_rows($num);
+        $result = mysqli_fetch_assoc($num);
 
         if($count == 1){
           $error_message = "";
+          $gebruikerID = $result['Klantid'];
+          $gebruikerEmail = $result['Email'];
+          $_SESSION['Naam'] = $result['Naam'];
+          $_SESSION['ID'] = $gebruikerID;
+          $_SESSION['Email'] = $gebruikerEmail;
           $success_message = "U bent ingelogt!";
+          header("Refresh:1;url=dashboard.php");
         } else {
           $error_message = "Geen gebruiker gevonden. Controleer je Email en/of Wachtwoord";
           $succes_message = "";
         }
       }
-    }
+      }
+      }
 
      ?>
     <div class="container">

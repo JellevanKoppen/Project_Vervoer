@@ -8,9 +8,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/script/master.js"></script>
-    <title>.</title>
+    <title>Contact</title>
   </head>
   <body>
+    <?php
+    if(isset($_SESSION['ID'])){
+      if(!isset($_SESSION['Visited'])){
+        echo '<body onLoad="referDashboard()">';
+      }
+      $_SESSION['Visited'] = "true";
+      $show = "";
+    } else {
+    $show = "style='display: none'";
+    }?>
     <div class="col-md-12" id="titlescreen">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -24,12 +34,12 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="contact.php">Contact</a></li>
-          <li><a href="#">Wie zijn wij?</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li class="active"><a href="contact.php">Contact</a></li>
+          <li><a href="about.html">Wie zijn wij?</a></li>
           <li><a href="#">Hoe het werkt</a></li>
           <li><a href="#">Ritprijsopgave</a></li>
-          <li style="display: none;"><a href="#">Overzicht</a></li>
+          <li <?php echo $show;?>><a href="dashboard.php">Overzicht</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li style="display: none;"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
