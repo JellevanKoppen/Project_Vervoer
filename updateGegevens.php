@@ -71,7 +71,7 @@
       $result = mysqli_query($conn, $sql);
       if($result){
         $error_message = "";
-        $succes_message = "Gegevens succesvol bijgewerkt";
+        $success_message = "Gegevens successvol bijgewerkt";
         header("Refresh:1;url='dashboard.php'");
       } else {
         $error_message = "Er is een fout opgetreden " . mysqli_error($conn);
@@ -110,15 +110,17 @@
     </div>
     <div class="container">
       <div class="col-sm-6 blok aanmelden noselect">
+        <?php if(!empty($success_message)) { ?>
+        <div class="success-message col-sm-4 col-md-12"><?php if(isset($success_message)) echo $success_message; ?></div>
+        <?php } ?>
+        <?php if(!empty($error_message)) { ?>
+        <div class="error-message col-sm-4 col-md-12"><?php if(isset($error_message)) echo $error_message; ?></div>
+        <?php } ?>
         <h3>Gegevens wijzigen</h3>
-        <?php if(!empty($succes_message)){?>
-          <div class="succes-message col-sm-6 col-md-12"><?php if(isset($succes_message)) echo $succes_message; ?></div><?php } ?>
-        <?php if(!empty($error_message)){?>
-          <div class="succes-message col-sm-6 col-md-12"><?php if(isset($error_message)) echo $error_message; ?></div> <?php } ?>
         <div class="indent">
           </div>
           <form name="frmRegistration" method="post" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>">
-            <table border="0" align="center">
+            <table border="0" width="500" align="center">
               <tr>
                 <td>Naam:</td>
                 <td><input type="text" placeholder="<?php echo $_SESSION['Naam'] ?>" class="inputBox" name="firstName" value=""></td>

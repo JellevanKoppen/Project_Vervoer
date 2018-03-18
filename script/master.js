@@ -38,7 +38,15 @@ function referDashboard(){
   if(confirm("Je bent al ingelogt, wil je je overzicht bekijken?")){
     window.location.href = "http://www.dewillem.nu/v6/v6vervoer04/dashboard.php";
   }
-  else {
-    //Niks
+}
+
+//GEOLOCATIONING
+function calcRoute(var start, var end){
+  console.log("Berekenen route...");
+  var request = {
+    origin:start,
+    destination:end,
+    travelmode: google.maps.TravelMode.DRIVING
+  };
   }
 }

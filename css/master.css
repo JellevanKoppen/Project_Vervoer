@@ -13,6 +13,13 @@ nav{
   z-index: 2;
 }
 
+.inleiding{
+  background-color: rgba(242,242,242,0.7);
+  box-shadow: 5px 5px 2.5px #888888;
+  margin-right: 20px;
+  margin-left: -30px;
+}
+
 .spacer{
   height: 1px;
   background: #cccccc;
@@ -49,6 +56,12 @@ nav{
   height: 50%;
   z-index: 0;
   top: -350px;
+}
+
+#mapfull{
+  height:75%;
+  /*z-index: 1;
+  top: -350px;*/
 }
 
 .row{
@@ -114,6 +127,7 @@ nav{
   background: white;
   box-shadow: 5px 5px 2.5px #888888;
   border-radius: 10px;
+  padding-bottom: 20px;
 }
 
 .indent{

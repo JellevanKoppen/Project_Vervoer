@@ -38,7 +38,7 @@
           $_SESSION['Achternaam'] = $result['Achternaam'];
           $_SESSION['Geslacht'] = $result['Geslacht'];
           $_SESSION['Tegoed'] = $result['Tegoed'];
-          if($_SESSION['Tegoed'] == 0){
+          if(!is_float($_SESSION['Tegoed'])){
             $subfix = ",-";
           } else {
             $subfix = "";
@@ -62,6 +62,15 @@
             echo '<body onLoad="showChauffeur()">';
           } else {
             echo "Er is een onbekende fout opgetreden";
+          }
+        }
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+          if($_POST['opstap'] != "-1" OR $_POST['uitstap'] != "-1")){
+            $_SESSION['opstap'] = $_POST['opstap']
+            $_SESSION['uitstap'] = $_POST['uitstap']
+            header("Location: ritprijs.php")
+          } else {
+            header("Refresh:1");
           }
         }
 
@@ -102,7 +111,7 @@
     </div>
     <div class="container">
       <div id="hiderG" style="display: none;">
-        <div class="col-sm-6 blok" style="margin-left: -10%;">
+        <div class="col-sm-5 blok" style="margin-bottom: 10%;">
           <h3>Gegevens</h3>
           <div class="indent">
             <table>
@@ -128,23 +137,67 @@
             </table>
           </div>
           </div>
+          <div class="col-sm-1"></div>
 
-        <div class="col-sm-6 blok pull-right" style="margin-right: -10%;">
-            <h3>Tegoed</h3>
+        <div class="col-sm-5 blok" style="margin-bottom: 10%;">
+            <h3>Tegoed <span class="glyphicon glyphicon-piggy-bank"></span></h3>
           <div class="indent">
           <h2>Saldo: €<?php echo $_SESSION['Tegoed'] . $subfix?></h2>
-          <a href="#">Opwaarderen?</a>
+          <a href="opwaarderen.php">Opwaarderen?</a>
         </div>
         </div>
 
         <div class="col-sm-12 row" style="margin-bottom: 10 px;"></div>
 
-        <div class="col-sm-6 blok" style="margin-left: -10%; margin-top: 10%;">
+        <div class="col-sm-5 blok" style="margin-bottom: 10%;">
           <h3>Boek een rit</h3>
           <div class="indent">
+            <form name="boek_rit" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post">
             <p>Opstap: </p>
-            <p>Uitstap: </p>
-            <p>Prijs: </p>
+            <select name="opstap">
+              <option value="home">CSG Dewillem van Oranje:</option>
+              <option value="-1">----------</option>
+              <option value="obl">Oud-Beijerland Poortwijk</option>
+              <option value="nbl">Nieuw-Beijerland</option>
+              <option value="pih">Piershil</option>
+              <option value="gwd">Goudswaard</option>
+              <option value="nwd">Nieuwendijk</option>
+              <option value="zbl">Zuid-Beijerland</option>
+              <option value="ndp">Numansdorp</option>
+              <option value="str">Strijen</option>
+              <option value="sts">Strijensas</option>
+              <option value="hno">Heinenoord</option>
+              <option value="sgd">'s-Gravendeel</option>
+              <option value="pho">Puttershoek</option>
+              <option value="msd">Maasdam</option>
+              <option value="wms">Westmaas</option>
+              <option value="mhl">Mijnsheerenland</option>
+              <option value="klw">Klaaswaal</option>
+            </select>
+            <p>Bestemming: </p>
+            <select name="uitstap">
+              <option value="home">CSG Dewillem van Oranje:</option>
+              <option value="-1">----------</option>
+              <option value="obl">Oud-Beijerland Poortwijk</option>
+              <option value="nbl">Nieuw-Beijerland</option>
+              <option value="pih">Piershil</option>
+              <option value="gwd">Goudswaard</option>
+              <option value="nwd">Nieuwendijk</option>
+              <option value="zbl">Zuid-Beijerland</option>
+              <option value="ndp">Numansdorp</option>
+              <option value="str">Strijen</option>
+              <option value="sts">Strijensas</option>
+              <option value="hno">Heinenoord</option>
+              <option value="sgd">'s-Gravendeel</option>
+              <option value="pho">Puttershoek</option>
+              <option value="msd">Maasdam</option>
+              <option value="wms">Westmaas</option>
+              <option value="mhl">Mijnsheerenland</option>
+              <option value="klw">Klaaswaal</option>
+            </select>
+            <p><br /></p>
+            <input type="submit" name="check-prijs" value="Check prijs" class="btnRegister">
+            </form>
           </div>
         </div>
       </div>

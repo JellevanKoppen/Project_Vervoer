@@ -121,11 +121,12 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-8 inleiding">
           <h3>Welkom</h3>
           <p>Hier komt de officiele nieuwe site van de Willem van Oranje</p>
           <p>Maak alvast een account aan om er als eerste bij te zijn zodra we online zijn! Of kom later terug om de nieuwe veranderingen te kunnen zien!</p>
-          <p>Functionaliteiten op dit moment: <br /> - Account aanmaken (zowel klant als chauffeur) <br /> - Je dashboard bekijken <br /> - Gegevens wijzigen</p>
+          <p>Functionaliteiten op dit moment: <br /> - Account aanmaken (zowel klant als chauffeur) <br /> - Je dashboard bekijken <br /> - Gegevens wijzigen
+             <br /> - Wachtwoord wijzigen <br /> - Tegoed opwaarderen <br /> <a href="about.html">Meet the team!</a></p>
         </div>
 
         <div class="col-sm-4 aanmelden noselect">
