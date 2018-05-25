@@ -1,0 +1,7 @@
+Prijzen taxi:
+(30% van de officiele website)
+https://www.rijksoverheid.nl/onderwerpen/taxi/vraag-en-antwoord/wat-zijn-de-kosten-voor-een-taxi
+
+	Starttarief	Kilometertarief	Tijdtarief
+Auto	0.91		0.67		0.11	
+Bus	1.84		0.84		0.13

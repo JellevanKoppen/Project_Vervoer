@@ -15,14 +15,33 @@
     <?php
     include 'Dbconnect.php';
 
+    if(isset($_GET['logout'])){
+      $_SESSION = array();
+      if($_COOKIE[session_name()]){
+        setcookie(session_name(), '', time()-42000, '/');
+      }
+      if(isset($_COOKIE['prijs'])){
+        setcookie("prijs","",time()-3600);
+        unset($_COOKIE['prijs']);
+        echo "<script>";
+        echo 'deleteCookie();';
+        echo "</script>";
+      }
+      session_destroy();
+      header("Location: index.php");
+    }
+
     if(isset($_SESSION['ID'])){
       if(!isset($_SESSION['Visited'])){
         echo '<body onLoad="referDashboard()">';
       }
       $_SESSION['Visited'] = "true";
       $show = "";
+      $dontshow = "style='display: none'";
+      $gebruiker = $_SESSION['Naam'];
     } else {
     $show = "style='display: none'";
+    $dontshow = "";
     $correct = "True";
     $required = array("firstName","lastName","password","userEmail","gender","confirm_password");
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -73,7 +92,7 @@
         $achternaam=$_POST['lastName'];
         $wachtwoord=$_POST['password'];
         $email=$_POST['userEmail'];
-        @$geslacht=$_POST['gender'];
+        $geslacht=$_POST['gender'];
         $geboortedatum = $_POST['jaar']."-". $_POST['maand']."-".$_POST['dag'];
         $sql="INSERT INTO chauffeurs (Naam, Achternaam, Geboortedatum, Email, Wachtwoord, Geslacht) VALUES('".$voornaam."','".$achternaam."','".$geboortedatum."','".$email."','".md5($wachtwoord)."','".$geslacht."')";
         $result = mysqli_query($conn, $sql);
@@ -99,21 +118,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Vervoer_Project</a>
+          <a class="navbar-brand" href="index.php">De Willem Transport</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           <li class="active"><a href="index.php">Home</a></li>
           <li><a href="contact.php">Contact</a></li>
           <li><a href="about.html">Wie zijn wij?</a></li>
-          <li><a href="#">Hoe het werkt</a></li>
-          <li><a href="#">Ritprijsopgave</a></li>
+          <li><a href="ritprijs.php">Ritprijsopgave</a></li>
           <li <?php echo $show?>><a href="dashboard.php">Overzicht</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li style="display: none;"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
-          <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
-          <li><a href="aanmelden.php"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
+          <li <?php echo $dontshow?>><a href="login.php"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
+          <li <?php echo $dontshow?>><a href="aanmelden.php"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
+          <li <?php echo $show?>><a><span class="glyphicon glyphicon-user"></span> Welkom <?php echo $gebruiker;?></a></li>
+          <li <?php echo $show?>><a href="dashboard.php?logout=1"><span class="glyphicon glyphicon-log-out"></span> Log uit</a></li>
         </ul>
       </div>
       </div>
@@ -123,10 +143,10 @@
       <div class="row">
         <div class="col-sm-8 inleiding">
           <h3>Welkom</h3>
-          <p>Hier komt de officiele nieuwe site van de Willem van Oranje</p>
-          <p>Maak alvast een account aan om er als eerste bij te zijn zodra we online zijn! Of kom later terug om de nieuwe veranderingen te kunnen zien!</p>
+          <p>Dit is de officiele vervoers-site van de Willem van Oranje</p>
+          <p>Maak een account aan en begin meteen met het boeken van een rit! Of meld je aan als chauffeur en steun de community!</p>
           <p>Functionaliteiten op dit moment: <br /> - Account aanmaken (zowel klant als chauffeur) <br /> - Je dashboard bekijken <br /> - Gegevens wijzigen
-             <br /> - Wachtwoord wijzigen <br /> - Tegoed opwaarderen <br /> <a href="about.html">Meet the team!</a></p>
+             <br /> - Tegoed opwaarderen <br /> - Rit boeken <br /> - Auto registreren <br /> - En nog veel meer... <br /> <a href="about.html">Meet the team!</a></p>
         </div>
 
         <div class="col-sm-4 aanmelden noselect">

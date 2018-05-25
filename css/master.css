@@ -20,6 +20,10 @@ nav{
   margin-left: -30px;
 }
 
+#directions-panel{
+  font-weight: bold;
+}
+
 .spacer{
   height: 1px;
   background: #cccccc;

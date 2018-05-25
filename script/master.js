@@ -25,13 +25,19 @@ function popUp(){
 }
 
 function showKlant(){
-  var hide = document.getElementById("hiderG");
+  console.log("Showing klant");
+  var hide = document.getElementById("GegevensTegoed");
+  var hidden = document.getElementById("hiderG");
   hide.style.display = "block";
+  hidden.style.display = "block";
 }
 
 function showChauffeur(){
-  var hide = document.getElementById("hiderG");
-  hide.style.display = "block";
+  console.log("Showing chauffeur");
+  var hidden = document.getElementById("GegevensTegoed");
+  var hider = document.getElementById("hiderC");
+  hider.style.display = "block";
+  hidden.style.display = "block";
 }
 
 function referDashboard(){
@@ -40,13 +46,12 @@ function referDashboard(){
   }
 }
 
-//GEOLOCATIONING
-function calcRoute(var start, var end){
-  console.log("Berekenen route...");
-  var request = {
-    origin:start,
-    destination:end,
-    travelmode: google.maps.TravelMode.DRIVING
-  };
+function checkValue(){
+  var value = document.getElementById('autoOverzicht').value;
+  if (value == "new"){
+    var show = document.getElementById("registreerAuto");
+    var hide = document.getElementById("autoLijst");
+    hide.style.display = "none";
+    show.style.display = "block";
   }
 }

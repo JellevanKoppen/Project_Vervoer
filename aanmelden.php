@@ -12,14 +12,26 @@
   </head>
   <body>
     <?php
+    if(isset($_GET['logout'])){
+      $_SESSION = array();
+      if($_COOKIE[session_name()]){
+        setcookie(session_name(), '', time()-42000, '/');
+      }
+      session_destroy();
+      header("Location: index.php");
+    }
+
     if(isset($_SESSION['ID'])){
       if(!isset($_SESSION['Visited'])){
         echo '<body onLoad="referDashboard()">';
       }
       $_SESSION['Visited'] = "true";
       $show = "";
+      $dontshow = "style='display: none'";
+      $gebruiker = $_SESSION['Naam'];
     } else {
     $show = "style='display: none'";
+    $dontshow = "";
     }?>
     <div class="col-md-12" id="titlescreen">
     <nav class="navbar navbar-inverse">
@@ -30,21 +42,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Vervoer_Project</a>
+          <a class="navbar-brand" href="index.php">De Willem Transport</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           <li><a href="index.php">Home</a></li>
           <li><a href="contact.php">Contact</a></li>
           <li><a href="#">Wie zijn wij?</a></li>
-          <li><a href="#">Hoe het werkt</a></li>
-          <li><a href="#">Ritprijsopgave</a></li>
+          <li><a href="ritprijs.php">Ritprijsopgave</a></li>
           <li <?php echo $show;?>><a href="#">Overzicht</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li style="display: none;"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
-          <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
-          <li class="active"><a href="aanmelden.php"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
+          <li <?php echo $dontshow?>><a href="login.php"><span class="glyphicon glyphicon-user"></span> Log in</a></li>
+          <li <?php echo $dontshow?>><a href="aanmelden.php"><span class="glyphicon glyphicon-pencil"></span> Aanmelden</a></li>
+          <li <?php echo $show?>><a><span class="glyphicon glyphicon-user"></span> Welkom <?php echo $gebruiker;?></a></li>
+          <li <?php echo $show?>><a href="dashboard.php?logout=1"><span class="glyphicon glyphicon-log-out"></span> Log uit</a></li>
         </ul>
       </div>
       </div>
